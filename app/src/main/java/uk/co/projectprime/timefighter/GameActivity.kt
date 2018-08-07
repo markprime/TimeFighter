@@ -7,7 +7,13 @@ import android.widget.TextView
 import android.widget.Toast
 import android.os.CountDownTimer
 import android.os.PersistableBundle
+import android.support.v7.app.AlertDialog
+import android.support.v7.app.AlertDialog.Builder
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
+import android.view.MenuInflater
+import android.view.animation.AnimationUtils
 import kotlinx.android.synthetic.main.activity_game.*
 
 
@@ -48,7 +54,11 @@ class GameActivity : AppCompatActivity() {
         timeLeftTextView = findViewById<TextView>(R.id.time_left_text_vew)
         tapMeButton = findViewById<Button>(R.id.tap_me_button)
 
-        tapMeButton.setOnClickListener { v -> incrementScore() }
+        tapMeButton.setOnClickListener { v ->
+
+            val bounceAnimation = AnimationUtils.loadAnimation(this, R.anim.bounce);
+            v.startAnimation(bounceAnimation)
+            incrementScore() }
 
         resetGame()
 
@@ -159,5 +169,32 @@ class GameActivity : AppCompatActivity() {
         Log.d(TAG, "onDestroy called.")
     }
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        super.onCreateOptionsMenu(menu)
+        menuInflater.inflate(R.menu.menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item!!.itemId == R.id.action_settings){showInfo()}
+        return true
+    }
+
+    private fun showInfo(){
+
+        val dialogTitle = getString(R.string.about_title, BuildConfig.VERSION_NAME)
+        val dialogMessage = getString(R.string.about_message)
+
+        val builder = Builder(this)
+        builder.setTitle(dialogTitle)
+        builder.setMessage(dialogMessage)
+        builder.create().show()
+
+    }
+
+
 
 }
+
+
+

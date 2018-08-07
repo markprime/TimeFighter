@@ -6,4 +6,7 @@
     <string name="time_left">Time left: %s</string>
     <string name="game_over_message">Times Up! Your score was: %s</string>
 
+    <string name="about_title">TimeFighter: the Game %s</string>
+    <string name="about_message">A projectprime creation</string>
+
 </resources>
